@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'LGBAutoLayout_Example', :exclusive => true do
+  pod 'LGBAutoLayout', :path => '../'
+end
+
+target 'LGBAutoLayout_Tests', :exclusive => true do
+  pod 'LGBAutoLayout', :path => '../'
+
+  
+end
