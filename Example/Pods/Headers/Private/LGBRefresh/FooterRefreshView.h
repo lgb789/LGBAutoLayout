@@ -1,0 +1,1 @@
+../../../LGBRefresh/Pod/Classes/FooterRefreshView.h

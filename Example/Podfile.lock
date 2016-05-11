@@ -1,0 +1,26 @@
+PODS:
+  - LGBAutoLayout (0.1.0)
+  - LGBCycleScrollView (0.1.3)
+  - LGBLog (0.1.3)
+  - LGBPhotoBrowser (0.1.0)
+  - LGBRefresh (0.1.8)
+
+DEPENDENCIES:
+  - LGBAutoLayout (from `../`)
+  - LGBCycleScrollView (~> 0.1.3)
+  - LGBLog (~> 0.1.3)
+  - LGBPhotoBrowser (~> 0.1.0)
+  - LGBRefresh (~> 0.1.8)
+
+EXTERNAL SOURCES:
+  LGBAutoLayout:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LGBAutoLayout: 1a715ecbc99ba7d9349667868b0822893512506b
+  LGBCycleScrollView: f246d964408329e0024e4197ba61621413b1c512
+  LGBLog: 88f58023334b82d226e306fb588b9007ff2b5c1e
+  LGBPhotoBrowser: 291f09799be220793f78b7bc81a90dd5288f2003
+  LGBRefresh: e104e37aaeacd210e2e4376ee4e0c70139788d6b
+
+COCOAPODS: 0.39.0

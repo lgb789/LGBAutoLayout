@@ -2,6 +2,12 @@ use_frameworks!
 
 target 'LGBAutoLayout_Example', :exclusive => true do
   pod 'LGBAutoLayout', :path => '../'
+
+source 'https://github.com/lgb789/LGBSpecs.git'
+  pod 'LGBLog', '~> 0.1.3'
+  pod 'LGBCycleScrollView', '~> 0.1.3'
+  pod 'LGBPhotoBrowser', '~> 0.1.0'
+  pod 'LGBRefresh', '~> 0.1.8'
 end
 
 target 'LGBAutoLayout_Tests', :exclusive => true do

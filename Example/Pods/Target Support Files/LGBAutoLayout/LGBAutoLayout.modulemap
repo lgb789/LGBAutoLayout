@@ -1,0 +1,6 @@
+framework module LGBAutoLayout {
+  umbrella header "LGBAutoLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}
