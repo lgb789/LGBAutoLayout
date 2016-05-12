@@ -41,7 +41,7 @@
     }
     CGFloat ratio = 1.0 / subviews.count;
     CGFloat space = 0;
-
+    
     for (UIView *v in subviews) {
         AutoLayoutManager *m = [v autoLayoutManager];
         if (m) {
@@ -55,7 +55,7 @@
         
     }
     
-//    DLog(@"width sub----->%f,%f,%ld", space, ratio, subviews.count);
+    //    DLog(@"width sub----->%f,%f,%ld", space, ratio, subviews.count);
     
     for (UIView *v in subviews) {
         AutoLayoutManager *m = [v autoLayoutManager];
@@ -142,7 +142,7 @@
     
     CGFloat toWidth = [self lgb_widthFromView:toView];
     CGFloat toX = [self lgb_xFromView:toView];
-   
+    
     CGPoint origin = [superView convertPoint:CGPointMake(toX, 0) toView:topView];
     CGPoint newOrigin = [topView convertPoint:origin toView:fromView.superview];
     
@@ -158,10 +158,10 @@
     }
     UIView *topView = [self lgb_topSuperView:fromView];
     UIView *superView = toView.superview ? toView.superview : toView;
-    CGPoint origin = [superView convertPoint:CGPointMake([self lgb_xFromView:toView], 0) toView:toView];
+    CGPoint origin = [superView convertPoint:CGPointMake([self lgb_xFromView:toView], 0) toView:topView];
     CGPoint newOrigin = [topView convertPoint:origin toView:fromView.superview];
     
-    return newOrigin.x - [self lgb_widthFromView:fromView] - space;
+    return newOrigin.x + [self lgb_widthFromView:toView] - [self lgb_widthFromView:fromView] - space;
 }
 
 -(CGFloat)lgb_xFromView:(UIView *)fromView
@@ -187,16 +187,8 @@
        rightEqualToView:(UIView *)toView
              withOffset:(CGFloat)offset
 {
-    if (fromView.superview == toView) {
-        return [self lgb_xFromView:fromView rightSpace:offset toView:toView];
-    }
     
-    UIView *topView = [self lgb_topSuperView:fromView];
-    UIView *superView = toView.superview ? toView.superview : toView;
-    CGPoint origin = [superView convertPoint:CGPointMake([self lgb_xFromView:toView], 0) toView:topView];
-    CGPoint newOrigin = [topView convertPoint:origin toView:fromView.superview];
-    
-    return newOrigin.x + [self lgb_widthFromView:toView] - [self lgb_widthFromView:fromView];
+    return [self lgb_xFromView:fromView rightSpace:offset toView:toView];
     
 }
 
@@ -258,6 +250,28 @@
     return newOrigin.y + [self lgb_heightFromView:toView] / 2 - [self lgb_heightFromView:fromView] / 2 + offset;
 }
 
+-(CGFloat)lgb_yFromView:(UIView *)fromView
+            bottomSpace:(CGFloat)space
+                 toView:(UIView *)toView
+{
+    if (fromView.superview == toView) {
+        return [self lgb_heightFromView:toView] - [self lgb_heightFromView:fromView] - space;
+    }
+    UIView *topView = [self lgb_topSuperView:fromView];
+    UIView *superView = toView.superview ? toView.superview : toView;
+    CGPoint origin = [superView convertPoint:CGPointMake(0, [self lgb_yFromView:toView]) toView:topView];
+    CGPoint newOrigin = [topView convertPoint:origin toView:fromView.superview];
+    
+    return newOrigin.y + [self lgb_heightFromView:toView] - [self lgb_heightFromView:fromView] - space;
+}
+
+-(CGFloat)lgb_yFromView:(UIView *)fromView
+      bottomEqualToView:(UIView *)toView
+             withOffset:(CGFloat)offset
+{
+    return [self lgb_yFromView:fromView bottomSpace:offset toView:toView];
+}
+
 -(CGFloat)lgb_widthFromView:(UIView *)fromView
                  rightSpace:(CGFloat)space
                      toView:(UIView *)toView
@@ -314,7 +328,7 @@
     UIView *superView = toView.superview ? toView.superview : toView;
     CGPoint origin = [superView convertPoint:CGPointMake(0, toY) toView:topView];
     CGPoint newOrigin = [topView convertPoint:origin toView:fromView.superview];
-
+    
     return newOrigin.y + [self lgb_heightFromView:toView] - [self lgb_yFromView:fromView] + offset;
 }
 
@@ -323,7 +337,7 @@
     if (manager.left) {
         return [self lgb_xFromView:manager.view leftSpace:manager.left.value toView:manager.left.refView];
     }else if (manager.leftOffset) {
-
+        
         return [self lgb_xFromView:manager.view leftEqualToView:manager.leftOffset.refView withOffset:manager.leftOffset.value];
     }else if (manager.centerXOffset) {
         CGFloat x = [self lgb_xFromView:manager.view centerXEqualToView:manager.centerXOffset.refView withOffset:manager.centerXOffset.value];
@@ -346,6 +360,10 @@
     }else if (manager.centerYOffset) {
         CGFloat y = [self lgb_yFromView:manager.view centerYEqualToView:manager.centerYOffset.refView withOffset:manager.centerYOffset.value];
         return y;
+    }else if (manager.bottom){
+        return [self lgb_yFromView:manager.view bottomSpace:manager.bottom.value toView:manager.bottom.refView];
+    }else if (manager.bottomOffset){
+        return [self lgb_yFromView:manager.view bottomEqualToView:manager.bottomOffset.refView withOffset:manager.bottomOffset.value];
     }
     return self.y;
 }
@@ -375,7 +393,7 @@
         label.numberOfLines = 0;
         CGFloat width = [self lgb_widthFromView:manager.view];
         CGSize size = [label sizeThatFits:CGSizeMake(width, CGFLOAT_MAX)];
-
+        
         if (manager.maxHeightValue.value == 0) {
             return size.height;
         }else{
@@ -388,7 +406,7 @@
         return manager.heightEqualWidth.value * [self lgb_widthFromView:manager.view];
         
     }else if (manager.heightValue) {
-
+        
         return manager.heightValue.value;
         
     }else if (manager.height) {
@@ -406,10 +424,10 @@
         for (UIView *v in manager.bottomArrayOffset.refViews) {
             height = MAX(height, [self lgb_HeightFromView:manager.view bottomEqualToView:v withOffset:manager.bottomArrayOffset.value]);
         }
-
+        
         return height;
     }
-
+    
     return self.height;
 }
 
