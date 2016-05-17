@@ -19,6 +19,7 @@
 #import "Example08.h"
 #import "Example09.h"
 #import "Example10.h"
+#import "Example11.h"
 
 @interface LGBViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -49,7 +50,8 @@
                        @[@"Example07", @"1.计算tableHeaderView的高度。\n2.tableview cell的图文混排"],
                        @[@"Example08", @"自动计算scrollview的content height"],
                        @[@"Example09", @"注册2个cell的图片混排"],
-                       @[@"Example10", @"仿微信朋友圈，未完成。。。"]
+                       @[@"Example10", @"仿微信朋友圈，未完成。。。"],
+                       @[@"Example11", @"设置scroll view水平方向content size"]
                        
                        ];
 }

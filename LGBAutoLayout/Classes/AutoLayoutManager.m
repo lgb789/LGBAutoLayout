@@ -48,6 +48,7 @@
 @synthesize bottomEqualToViewArrayWithOffset   = _bottomEqualToViewArrayWithOffset;
 @synthesize widthEqualToViewWithSpaceRatio     = _widthEqualToViewWithSpaceRatio;
 @synthesize maxHeightIs                        = _maxHeightIs;
+@synthesize contentRightEqualToViewWithOffset  = _contentRightEqualToViewWithOffset;
 
 #pragma mark - *********************** public methods ***********************
 
@@ -136,6 +137,18 @@
         item.refView = view;
         item.value = ratio;
         item.space = space;
+        [weakSelf setValue:item forKey:key];
+        return weakSelf;
+    };
+}
+
+-(ContentWidth)contentWidthWithKey:(NSString *)key
+{
+    __weak typeof(self) weakSelf = self;
+    return ^(UIView *view, CGFloat value){
+        AutoLayoutItem *item = [AutoLayoutItem new];
+        item.value = value;
+        item.refView = view;
         [weakSelf setValue:item forKey:key];
         return weakSelf;
     };
@@ -301,6 +314,14 @@
         _maxHeightIs = [self widthHeightWithKey:NSStringFromSelector(@selector(maxHeightValue))];
     }
     return _maxHeightIs;
+}
+
+-(ContentWidth)contentRightEqualToViewWithOffset
+{
+    if (_contentRightEqualToViewWithOffset == nil) {
+        _contentRightEqualToViewWithOffset = [self contentWidthWithKey:NSStringFromSelector(@selector(contentWidth))];
+    }
+    return _contentRightEqualToViewWithOffset;
 }
 
 @end

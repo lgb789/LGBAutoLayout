@@ -452,6 +452,15 @@
                 }
             }
             
+            if (manager.contentWidth) {
+                if ([manager.view isKindOfClass:[UIScrollView class]]) {
+                    UIScrollView *scroll = (UIScrollView *)manager.view;
+                    CGFloat width = [self lgb_widthFromView:manager.contentWidth.refView] + [self lgb_xFromView:manager.contentWidth.refView];
+                    scroll.contentSize = CGSizeMake(manager.contentWidth.value + width, manager.view.height);
+                    
+                }
+            }
+            
         }];
         
     }

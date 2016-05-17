@@ -19,6 +19,7 @@ typedef AutoLayoutManager* (^SameWidthHeight)(CGFloat value);
 typedef AutoLayoutManager* (^ContentHeight)(UIView *view, CGFloat value);
 typedef AutoLayoutManager* (^MarginToViewArray)(NSArray *views, CGFloat value);
 typedef AutoLayoutManager* (^WidthToView)(UIView *view, CGFloat space, CGFloat ratio);
+typedef AutoLayoutManager* (^ContentWidth)(UIView *view, CGFloat value);
 
 @interface AutoLayoutItem : NSObject
 @property (nonatomic, assign) CGFloat value;
@@ -285,6 +286,17 @@ typedef AutoLayoutManager* (^WidthToView)(UIView *view, CGFloat space, CGFloat r
  */
 @property (nonatomic, strong, readonly) AutoLayoutItem *maxHeightValue;
 
+
+/**
+ *  设置view的content width等于参考view的right ＋ 偏移offset
+ *  (UIView *refView, CGFloat offset)
+ */
+@property (nonatomic, copy, readonly) ContentHeight contentRightEqualToViewWithOffset;
+/**
+ *  存储contentRightEqualToViewWithOffset的参数数据
+ *  (UIView *refView, CGFloat offset)
+ */
+@property (nonatomic, strong, readonly) AutoLayoutItem *contentWidth;
 
 /**
  *  更新布局
