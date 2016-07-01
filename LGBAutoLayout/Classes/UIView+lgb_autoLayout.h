@@ -44,4 +44,11 @@
  */
 -(void)lgb_equalWidthSubviews:(NSArray *)subviews;
 
+/**
+ *  添加子view
+ *
+ *  @param subviews 需要添加的子view包含在数组中
+ */
+-(void)lgb_addSubviews:(NSArray *)subviews;
+
 @end

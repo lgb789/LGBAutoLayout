@@ -65,6 +65,13 @@
     }
 }
 
+-(void)lgb_addSubviews:(NSArray *)subviews
+{
+    for (UIView *view in subviews) {
+        [self addSubview:view];
+    }
+}
+
 #pragma mark - *********************** method swizzling ***********************
 
 +(void)load
